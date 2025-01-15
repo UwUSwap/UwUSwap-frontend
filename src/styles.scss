@@ -1,1 +1,73 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Global Reset */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%; /* Allow body height to grow with content */
+    background: linear-gradient(to right, #6a11cb, #2575fc); /* Fantasy gradient */
+    font-family: 'Arial', sans-serif; /* Set a clean font for the app */
+    color: white; /* Make text visible against the gradient */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+  
+  /* App Root Styling */
+  app-root {
+    display: block;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px; /* Add padding for content spacing */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+  }
+  
+  /* Content Wrapper */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto; /* Center the container */
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1); /* Slightly transparent background */
+    border-radius: 15px; /* Rounded corners for a modern look */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+  }
+  
+  /* Scrollable Content */
+  .scrollable-content {
+    max-height: calc(100vh - 40px); /* Make content fit the viewport */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-right: 10px; /* Avoid scrollbar overlap */
+  }
+  
+  /* Universal Box Sizing */
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* Optional Styling for Buttons */
+  button {
+    background: #ffffff;
+    color: #6a11cb;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    background: #6a11cb;
+    color: #ffffff;
+  }
+  
+  /* Optional Styling for Inputs */
+  input {
+    padding: 10px;
+    border: 2px solid #6a11cb;
+    border-radius: 25px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    width: calc(100% - 24px);
+    box-sizing: border-box;
+  }
+  

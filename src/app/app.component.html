@@ -1,9 +1,54 @@
-Block Number is {{blockNumber}} <br> Chain Id: {{chainId}}
-<br>
-Account: {{showingAccounts}}
-<br>
-<!-- login with metamask -->
-<button (click)="login()">Login</button>
-<!-- get balance -->
-<button (click)="getBalance()">Get Balance</button>
-<div>balance: {{showingBalance}}</div>
+<div style="font-family: 'Poppins', sans-serif; background: linear-gradient(to right, #6a11cb, #2575fc); color: white; min-height: 100vh; padding: 30px; text-align: center;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">
+      🌟 Welcome to <span style="color: #ffdd00;">keyboard2543dapps</span> 🌟
+    </h1>
+  
+    <!-- Blockchain Info -->
+    <div style="margin: 20px auto; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 15px; box-shadow: 0 8px 15px rgba(0,0,0,0.2); max-width: 500px;">
+      <h2 style="font-size: 1.5rem; margin-bottom: 10px;">🔗 Blockchain Info</h2>
+      <p><strong>Block Number:</strong> {{blockNumber}}</p>
+      <p><strong>Chain ID:</strong> {{chainId}}</p>
+    </div>
+  
+    <!-- Account Info -->
+    <div style="margin: 20px auto; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 15px; box-shadow: 0 8px 15px rgba(0,0,0,0.2); max-width: 500px;">
+      <h2 style="font-size: 1.5rem; margin-bottom: 10px;">👤 Account Info</h2>
+      <p><strong>Connected Account:</strong> {{showingAccounts || 'Not Connected'}}</p>
+      <button (click)="login()" style="padding: 10px 25px; font-size: 1rem; background: #ff6ec4; border: none; border-radius: 30px; color: white; cursor: pointer; transition: 0.3s;">
+        🚀 Connect Wallet
+      </button>
+    </div>
+  
+    <!-- Balance Section -->
+    <div style="margin: 20px auto; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 15px; box-shadow: 0 8px 15px rgba(0,0,0,0.2); max-width: 500px;">
+      <h2 style="font-size: 1.5rem; margin-bottom: 10px;">💰 Account Balance</h2>
+      <button (click)="getBalance()" style="padding: 10px 25px; font-size: 1rem; background: #34d399; border: none; border-radius: 30px; color: white; cursor: pointer; transition: 0.3s;">
+        📊 Get Balance
+      </button>
+      <p><strong>Balance:</strong> {{showingBalance}} Wei</p>
+    </div>
+  
+    <!-- Store String Section -->
+    <div style="margin: 20px auto; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 15px; box-shadow: 0 8px 15px rgba(0,0,0,0.2); max-width: 500px;">
+      <h2 style="font-size: 1.5rem; margin-bottom: 10px;">📝 Store a String</h2>
+      <input 
+        type="text" 
+        [(ngModel)]="stringToStore" 
+        placeholder="Enter a string to store"
+        style="padding: 10px; width: 80%; border-radius: 15px; border: 1px solid #ccc; outline: none; font-size: 1rem; margin-bottom: 10px;">
+      <br>
+      <button (click)="storeString()" style="padding: 10px 25px; font-size: 1rem; background: #f97316; border: none; border-radius: 30px; color: white; cursor: pointer; transition: 0.3s;">
+        🔒 Store String
+      </button>
+    </div>
+  
+    <!-- Retrieve Stored String -->
+    <div style="margin: 20px auto; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 15px; box-shadow: 0 8px 15px rgba(0,0,0,0.2); max-width: 500px;">
+      <h2 style="font-size: 1.5rem; margin-bottom: 10px;">📤 Retrieve Stored String</h2>
+      <button (click)="fetchString()" style="padding: 10px 25px; font-size: 1rem; background: #10b981; border: none; border-radius: 30px; color: white; cursor: pointer; transition: 0.3s;">
+        📥 Get Stored String
+      </button>
+      <p><strong>Stored String:</strong> {{showingStoredString || 'No String Stored'}}</p>
+    </div>
+  </div>
+  

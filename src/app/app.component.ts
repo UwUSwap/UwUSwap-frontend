@@ -10,13 +10,52 @@ const web3 = new Web3(window.ethereum); // Dynamically use MetaMask provider
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'keyboard2543dapps-ui';
+  title = 'UwUSwap';
   web3: Web3;
   contract: any;
   blockNumber = BigInt(-1);
   chainId = BigInt(-1);
-  contractAddress = "0xa5C7AC4a51A7a0954cA3b81CA94dF1f553Be2B9E";
+  contractAddress = "0x6C87f83c8cA61a8cA93EA394bF1dE4Cc84Ebea53";
   contractABI = [
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "_receiver",
+          "type": "address"
+        }
+      ],
+      "name": "giveEther",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "num",
+          "type": "uint256"
+        }
+      ],
+      "name": "store",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_value",
+          "type": "string"
+        }
+      ],
+      "name": "storeText",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
     {
       "anonymous": false,
       "inputs": [
@@ -57,7 +96,7 @@ export class AppComponent implements OnInit {
     },
     {
       "inputs": [],
-      "name": "getValue",
+      "name": "getLatestStoredText",
       "outputs": [
         {
           "internalType": "string",
@@ -66,19 +105,6 @@ export class AppComponent implements OnInit {
         }
       ],
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address payable",
-          "name": "_receiver",
-          "type": "address"
-        }
-      ],
-      "name": "giveEther",
-      "outputs": [],
-      "stateMutability": "payable",
       "type": "function"
     },
     {
@@ -95,37 +121,25 @@ export class AppComponent implements OnInit {
       "type": "function"
     },
     {
-      "inputs": [
+      "inputs": [],
+      "name": "retrieveAllStoredText",
+      "outputs": [
         {
-          "internalType": "uint256",
-          "name": "num",
-          "type": "uint256"
+          "internalType": "string[]",
+          "name": "",
+          "type": "string[]"
         }
       ],
-      "name": "store",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_value",
-          "type": "string"
-        }
-      ],
-      "name": "storeValue",
-      "outputs": [],
-      "stateMutability": "nonpayable",
+      "stateMutability": "view",
       "type": "function"
     }
-  ];
+  ]
 
   showingBalance = BigInt(-1);
   showingAccounts = "0x0";
   showingStoredString = "";
   stringToStore = "";
+  allStoredStrings: string[] = [];
 
   constructor() {
     this.web3 = new Web3(window.ethereum); // Use MetaMask's provider
@@ -152,7 +166,8 @@ export class AppComponent implements OnInit {
       this.showingAccounts = accounts[0];
       console.log("Logged in:", this.showingAccounts);
       this.showingBalance = BigInt(await this.web3.eth.getBalance(this.showingAccounts));
-      this.fetchString();
+      this.fetchText();
+      this.fetchAllText();
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -168,23 +183,32 @@ export class AppComponent implements OnInit {
     }
   }
 
-  async storeString() {
+  async storeText() {
     try {
-      await this.contract.methods['storeValue'](this.stringToStore).send({ from: this.showingAccounts });
+      await this.contract.methods['storeText'](this.stringToStore).send({ from: this.showingAccounts });
       console.log("String stored successfully!");
-      this.fetchString();
+      this.fetchText();
     } catch (error) {
       console.error("Error storing string:", error);
     }
   }
 
-  async fetchString() {
+  async fetchText() {
     try {
-      const value: string = await this.contract.methods['getValue']().call({ from: this.showingAccounts });
+      const value: string = await this.contract.methods['getLatestStoredText']().call({ from: this.showingAccounts });
       this.showingStoredString = value;
       console.log("Fetched string:", this.showingStoredString);
     } catch (error) {
       console.error("Error fetching string:", error);
+    }
+  }
+
+  async fetchAllText() {
+    try {
+      this.allStoredStrings = await this.contract.methods['retrieveAllStoredText']().call({ from: this.showingAccounts });
+      console.log("Fetched strings:", this.allStoredStrings);
+    } catch (error) {
+      console.error("Error fetching strings:", error);
     }
   }
 }
